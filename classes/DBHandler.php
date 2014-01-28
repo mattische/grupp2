@@ -4,7 +4,7 @@ class DBHandler
 	private $pdo;
 
 	function __construct() {
-		$this->pdo = new PDO('mysql:host=localhost;dbname=blog_group2', "root", "");
+		$this->pdo = new PDO('mysql:host=localhost;dbname=blog_group2', "", "");
 	}
 
 	function query($sql) {
@@ -13,6 +13,9 @@ class DBHandler
 		return $stmt->fetchAll();
 	}
 
+	function lastInsertId() {
+		return $this->pdo->lastInsertId();
+	}
 
 
 	function __destruct() {

@@ -10,15 +10,10 @@ if(isset($_SESSION['usr']))
 echo "</h1>";
 
 require("classes/DBHandler.php");
-$db = new DBHandler();
+require("classes/PostHandler.php");
 
-$res = $db->query("SELECT users.username, posts.title, posts.posted, posts.message 
-	FROM posts, users, users_posts 
-	WHERE posts.id = users_posts.posts_id 
-	AND users_posts.user_id = users.id 
-	ORDER BY posts.posted DESC");
-
-unset($db);
+$ph = new PostHandler();
+$res = $ph->showPosts();
 
 foreach ($res as $key) {
 	echo $key['title'] ."<br />";
