@@ -1,26 +1,39 @@
 <?php
 $title = "BlOg";
-require("template/header.php");
+require("templates/header.php");
+require("lib/DBHandler.php");
+require("controllers/PostController.php");
+require("models/PostModel.php");
+
+
+echo "<h1>WELCOME</h1>";
 
 
 
-echo "<h1>WELCOME";
-if(isset($_SESSION['usr']))
-	echo " ".$_SESSION['usr'];
-echo "</h1>";
+if(isset($_GET['c'])) {
 
-require("classes/DBHandler.php");
-require("classes/PostHandler.php");
+	switch ($_GET['c']) {
+		case 'post':
+			$pc = new PostController();
+			echo "POSTS";
+			if(isset($_GET['pid'])) {
+				$pid = $_GET['pid'];
+				$pc->getPost($pid);
+			}
+			break;
+		
+		default:
+			# code...
+			break;
+	}
+}
+else {
+	$pc = new PostController();
+	$pc->getAllPosts();
 
-$ph = new PostHandler();
-$res = $ph->showPosts();
-
-foreach ($res as $key) {
-	echo $key['title'] ."<br />";
-	echo $key['message'] . "<br />";
-	echo $key['posted'] . " <a href=homepage.php?usr=" . $key['username'] . ">".$key['username']."</a><br /><br />";
-}  
+}
 
 
-require("template/footer.php");
+
+require("templates/footer.php");
 ?>

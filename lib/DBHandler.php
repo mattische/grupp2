@@ -4,7 +4,7 @@ class DBHandler
 	private $pdo;
 
 	function __construct() {
-		$this->pdo = new PDO('mysql:host=localhost;dbname=blog_group2', "", "");
+		$this->pdo = new PDO('mysql:host=localhost;dbname=blog_group2', "bloguser", "123");
 	}
 
 	function query($sql) {
