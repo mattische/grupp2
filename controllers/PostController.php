@@ -10,6 +10,12 @@ class PostController
 
 	function getPost($postId) {
 		$post = $this->pm->getOne($postId);
+
+		require_once("controllers/CommentController.php");
+		require_once("models/CommentModel.php");
+		$cc = new CommentController();
+		$comments = $cc->getComments($postId);
+		
 		include("views/viewpost.php");
 	}
 
